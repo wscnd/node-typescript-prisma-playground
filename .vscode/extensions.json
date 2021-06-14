@@ -1,3 +1,5 @@
 {
-  "recommendations": ["Prisma.prisma"]
+  "recommendations": [
+    "Prisma.prisma"
+  ],
 }

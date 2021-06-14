@@ -6,9 +6,31 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.$connect();
 
-  const users = await prisma.user.findMany();
+  const users = await prisma.user
+    .findMany({
+      where: {
+        email: { contains: "@" },
+      },
+      include: {
+        posts: true,
+      },
+    })
+    .then(log);
 
-  console.dir({ users }, { depth: Infinity });
+  const posts = await prisma.user
+    .findFirst({
+      where: {
+        email: { contains: "second" },
+      },
+    })
+    .posts({
+      include: { author: true },
+    })
+    .then(log);
+}
+
+function log(data: any[]) {
+  return console.dir(data, { depth: Infinity });
 }
 
 main()
