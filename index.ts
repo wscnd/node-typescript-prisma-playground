@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import os from "os";
 
 const app = express();
 
@@ -11,8 +12,9 @@ app.get("/", async (req, res) => {
   res.json({ hello: "hello" });
 });
 
+const localIp = os.networkInterfaces()["eth0"]?.[0]?.address;
 const port = 3000;
 
 app.listen(port, () => {
-  console.log(`listening on http://localhost:${port}`);
+  console.log(`listening on http://${localIp}:${port}`);
 });
