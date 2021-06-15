@@ -1,7 +1,8 @@
-import { PrismaClient } from "@prisma/client";
 import express from "express";
 import morgan from "morgan";
 import os from "os";
+
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
 
@@ -14,6 +15,20 @@ app.get("/posts", async (req, res) => {
   const posts = await prisma.post.findMany();
   console.dir(posts, { depth: Infinity });
   res.json(posts);
+});
+
+app.get("/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const user = await prisma.user.findFirst({
+    where: {
+      id: Number(id),
+    },
+    include: {
+      posts: true,
+    },
+  });
+  console.dir(user, { depth: Infinity });
+  res.json(user);
 });
 
 app.get("/users", async (req, res) => {

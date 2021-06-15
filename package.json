@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "ts-node ./script.ts",
-    "start": "tsnd --clear --respawn --deps ./index.ts"
+    "start": "tsnd --clear --respawn ./index.ts"
   },
   "dependencies": {
     "@prisma/client": "2.24.1",
